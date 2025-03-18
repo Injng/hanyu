@@ -25,5 +25,5 @@ fn main() {
 
     // parse content and print
     let word = Word::parse(&content, word);
-    println!("{:?}", word);
+    word.print();
 }

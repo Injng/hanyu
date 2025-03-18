@@ -10,6 +10,7 @@ pub struct Word {
 }
 
 impl Word {
+    /// Create a new word entry by parsing the HTML content.
     pub fn parse(entry: &str, word: String) -> Self {
         let document = Html::parse_document(entry);
         let pinyin_selector = Selector::parse(".pinyin-text").unwrap();
@@ -25,6 +26,15 @@ impl Word {
             word,
             pinyin: pinyin.to_string(),
             definitions,
+        }
+    }
+
+    /// Print the word entry.
+    pub fn print(&self) {
+        println!("Word: {}", self.word);
+        println!("Pinyin: {}", self.pinyin);
+        for definition in &self.definitions {
+            println!("{}", definition.to_string());
         }
     }
 }

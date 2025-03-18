@@ -23,14 +23,24 @@ pub struct Definition {
 }
 
 impl Definition {
+    /// Create a new definition struct with the given part and meaning.
     pub fn new(part: Option<Part>, meaning: String) -> Self {
         Definition {
             part,
             meaning,
         }
     }
+
+    /// Convert the struct to a string representation.
+    pub fn to_string(&self) -> String {
+        match &self.part {
+            Some(part) => format!("[{}] {}", part_to_string(part), self.meaning),
+            None => format!("{}", self.meaning),
+        }
+    }
 }
 
+/// Convert the part of speech image url to a Part enum.
 pub fn to_part(url: &str) -> Option<Part> {
     match url {
         NOUN_URL => Some(Part::Noun),
@@ -38,5 +48,14 @@ pub fn to_part(url: &str) -> Option<Part> {
         ADJECTIVE_URL => Some(Part::Adjective),
         // unreachable
         _ => None,
+    }
+}
+
+/// Convert a Part enum to a string representation.
+pub fn part_to_string(part: &Part) -> String {
+    match part {
+        Part::Noun => "名".to_string(),
+        Part::Verb => "动".to_string(),
+        Part::Adjective => "形".to_string(),
     }
 }
